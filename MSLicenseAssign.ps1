@@ -2,9 +2,6 @@
  Created by J. Carlton Bryan
  05/30/2023
  added check for installed modules => 9/19/2023
-
- Install-Module Microsoft.Graph -AllowClobber -Force
- Import-Module Microsoft.Graph.Users, Microsoft.Graph.Users.Actions
 #>
 
 $MsGraphModule =  Get-Module Microsoft.Graph -ListAvailable
@@ -34,20 +31,20 @@ if($null -eq $MsGraphModule)
 $unlicensedUsersJCB = $null
 $unlicensedUsersJCB = Get-MgUser -Filter 'assignedLicenses/$count eq 0 and OnPremisesSyncEnabled eq true and accountEnabled eq true' -ConsistencyLevel eventual -CountVariable unlicensedUserCount -All -Select Mail, UserPrincipalName, ID
 
-$license1 = Get-MgSubscribedSku | Where-Object {$_.SkuPartNumber -eq "M365EDU_A3_STUUSEBNFT"}
-$license2 = Get-MgSubscribedSku | Where-Object {$_.SkuPartNumber -eq "M365EDU_A3_FACULTY"}
+$license1 = Get-MgSubscribedSku | Where-Object {$_.SkuPartNumber -eq "SKU License Number"}
+$license2 = Get-MgSubscribedSku | Where-Object {$_.SkuPartNumber -eq "SKU License Number"}
 
 ForEach ($user in $unlicensedUsersJCB)  # cycle through unlicensed user
     {
     If ($user.Mail)  # Has email - assign License
         {
-          if ($user.Mail -match "@mymail.bladencc.edu") # Student
+          if ($user.Mail -match "@student.email") # Student
            {
         Update-MgUser -UserId $user.Id -UsageLocation US
         Set-MgUserLicense -UserId $user.Id -AddLicenses @{SkuId = ($license1.SkuId)} -RemoveLicenses @()
           } # end student section
 
-          if ($user.Mail -match "@bladencc.edu") # Employee
+          if ($user.Mail -match "@employee.email") # Employee
            {
         Update-MgUser -UserId $user.Id -UsageLocation US
         Set-MgUserLicense -UserId $user.Id -AddLicenses @{SkuId = ($license2.SkuId)} -RemoveLicenses @()
