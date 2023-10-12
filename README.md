@@ -8,7 +8,6 @@ Hope you enjoy.
 After you setup this script you should be able to use this with Windows Task Scheduler to update any missing licenese issues at yout domain.
 Hope this helps.
 @w4jcb
->>>>>>> b5bcc3ae78a03e4e2ec40cb55849edc4236bf08d
 
 
 
