@@ -1,6 +1,5 @@
 # PowerShell
 I use this at work and thought it might be of some use to others
-<<<<<<< HEAD
 This should help to keep all users with a MS license.
 Hope you enjoy.
 =======
