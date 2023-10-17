@@ -18,7 +18,7 @@ if($null -eq $MsGraphModule)
     }
     else
     {
-        Write-host "Exiting. `nNote: Microsoft graph module must be available in your system to run the script" -ForegroundColor Red
+        Write-host "Exiting. `Note: Microsoft graph module must be available in your system to run the script" -ForegroundColor Red
         Exit
     }
 }
